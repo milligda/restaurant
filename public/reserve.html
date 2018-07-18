@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Tables Page</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+                <h1 class="display-4">Hot Restaurant</h1>
+                <p class="lead">Make your Reservation
+                </p>
+        
+                <a href="tables" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">View Tables</a>
+                
+
+                <a href="index" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">Home</a>
+               
+                  </p>
+        </div>
+
+        <div class="form">
+                <form>
+                    <div class="form-group">
+                      <label for="">Name</label>
+                      <input type="text" class="form-control" id="name">
+                    </div>
+                    <div class="form-group">
+                      <label for="">Phone Number</label>
+                      <input type="text" class="form-control" id="number">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Email</label>
+                        <input type="text" class="form-control" id="email">
+                      </div>
+    
+                  <button type="submit" id="submit-button" class="btn btn-primary">Submit</button>
+                </form>
+        </div>
+    </div>
+
+        
+
+        <script type="text/javascript">
+                $("#submit-button").on("click", function() {
+                        event.preventDefault();
+
+                        var newReservation = {
+                                name:  $("#name").val().trim(),
+                                number:  $("#number").val().trim(),
+                                email:  $("#email").val().trim(),
+                        };
+
+                        $.post('/api/reservations', newReservation)
+                                .then(function(data) {
+                                        if (data === true) {
+                                                alert("You have a reservation!");
+                                        } else {
+                                                alert("You have been added to the wait list.");
+                                        }
+                                });
+                });
+        </script>
+    
+</body>
+</html>

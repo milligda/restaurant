@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Tables Page</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style"> 
+    <script src="https://code.jquery.com/jquery.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+                <h1 class="display-4">Hot Restaurant</h1>
+                <p class="lead">Current Reservations and Waiting List
+                </p>
+        
+                <a href="reserve" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Make Reservation</a>
+                
+
+                <a href="index" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">Home</a>
+               
+                  </p>
+        </div>
+
+        <div class="row">
+                <div class="col-lg-12">
+          
+                  <!-- Current Tables in Use -->
+                  <div class="panel panel-default">
+                        <div class="panel-heading">
+                        <h4 class="panel-title">Current Reservations</h4>
+                        </div>
+                    <div class="panel-body" id="tableSection">
+                  </div>
+          
+                  <!-- Waiting List Panel -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">Waiting List</h4>
+                    </div>
+                    <div class="panel-body" id="waitlistSection">
+                </div>
+                  </div>
+    </div>
+
+    <script type="text/javascript">
+        
+        $.get("/api/reservations", function(tables) {
+                for (var i = 0; i < tables.length; i++) {
+
+                        var tableWell = $("<div>");
+                        tableWell.addClass("well");
+                        tableWell.html('<h2><span class="label label-primary">' + (i + 1) + '</span> | ' + tables[i].name + '</h2>');
+                        tableWell.appendTo("#tableSection");
+
+                }
+        });
+
+        $.get("/api/waitlist", function(waitlist) {
+
+                for (var i = 0; i < waitlist.length; i++) {
+
+                        var waitlistWell = $("<div>");
+                        waitlistWell.addClass("well");
+                        waitlistWell.html('<h2><span class="label label-primary">' + (i + 1) + '</span> | ' + waitlist[i].name + '</h2>');
+                        waitlistWell.appendTo("#waitlistSection");
+                }
+
+        });
+
+    </script>
+    
+</body>
+</html>
